@@ -1,0 +1,214 @@
+\documentclass{article}
+
+\usepackage{amsmath, amsthm, amssymb, amsfonts}
+\usepackage{xcolor}
+\usepackage{geometry}
+\geometry{a4paper, margin=1in}
+
+\newtheoremstyle{questionstyle}
+  {} % Space above
+  {} % Space below
+  {} % Body font
+  {} % Indent amount
+  {\bfseries} % Theorem head font (bold)
+  {.} % Punctuation after theorem head
+  { } % Space after theorem head
+  {} % Theorem head spec (can be left empty, meaning 'normal')
+\theoremstyle{questionstyle}
+\newtheorem{myquestion}{Question}
+
+% ------------------------------------------------------------------------------
+
+\begin{document}
+
+\begin{center}
+    \Large{\textbf{Homework \#3 STP 427}}
+\end{center}
+
+\section{Question 1}
+\begin{myquestion}
+    (20 pts.) If \(X_1, X_2, \cdots , X_n\) constitute a random sample of size \(n\) from a gamma population with the shape parameter \(\alpha = 3\) and the rate parameter \(\beta > 0\).\\
+
+a) Find the method of moment estimator of \(\beta\).\\
+
+\textbf{Solution:}\\
+\(X_1, \cdots, X_n \overset{\text{iid}}{\sim} \operatorname{Gamma}(\alpha, \beta)\)\\
+
+The probability density function (pdf) is given by
+
+\begin{align*}
+    f(x; \beta) &= \frac{\beta^{\alpha}}{\Gamma(\alpha)} x^{\alpha-1}e^{-\beta x} \\
+    &= \frac{\beta^{3}}{\Gamma(3)} x^{2}e^{-\beta x} \hspace{0.4cm} \because \alpha = 3\\
+\end{align*}
+
+Recall the Gamma function: 
+\[ \Gamma(n) = (n-1)! \]
+
+Finding the first moment (mean):
+\begin{align*}
+    E(X) &= \frac{\beta^{3}}{\Gamma(3)}\int_{0}^{\infty}x^{3}e^{-\beta x}dx\\
+    &= \frac{\beta^{3}}{2} \left(\frac{6}{\beta^4}\right) \hspace{.2cm} \because \Gamma(4) = 3! = 6\\
+    &= \frac{3}{\beta}
+\end{align*}
+
+Thus, using the sample mean, \(\Bar{X}\), to estimate \(E(X)\):
+\[\Bar{X} = \frac{3}{\beta} \Rightarrow \beta = \frac{3}{\Bar{X}}\]
+
+Therefore, using the method of moments (\(MOM\)), we find 
+\[ \hat{\beta}_{MOM} = \frac{3}{\Bar{X}} \]
+
+
+b) Find the maximum likelihood estimator \(\beta\).\\
+
+\textbf{Solution:}
+
+\begin{align*}
+    L(\beta;x) &= \prod_{i=1}^n f(x_i;\beta)\\
+    =& \prod_{i=1}^n \frac{\beta^{3}}{\Gamma(3)} x_i^{2}e^{-\beta x_i}\\
+    =& \frac{\beta^{3n}}{2n} \prod_{i=1}^n x_i^{2}e^{-\beta x_i}\\
+    =& \frac{\beta^{3n}}{2n} \prod_{i=1}^n x_i^{2}e^{-\sum_{i=1}^n\beta x_i}\\
+    l(\beta) =& \ln \left( \frac{\beta^{3n}}{2n} \prod_{i=1}^n x_i^{2}e^{-\sum_{i=1}^n\beta x_i} \right)\\
+    =& 3n\ln(\beta) - n\ln(2) + \sum_{i=1}^n \ln(x_i^2) - \sum_{i=1}^n\beta x_i\\
+    \frac{\partial l}{\partial \beta}=& \frac{\partial}{\partial \beta} \left( 3n\ln(\beta) - n\ln(2) + \sum_{i=1}^n \ln(x_i^2) - \sum_{i=1}^n\beta x_i = 0\right)\\
+    =& \frac{3n}{\beta} - \sum_{i=1}^n x_i = 0\\
+    \beta =& \frac{3n}{\sum_{i=1}^n x_i}\\
+    \beta =& \frac{3n}{\Bar{x}}\\
+    \beta =& \hat{\beta}_{MLE} = \frac{3n}{\Bar{x}}
+\end{align*}
+and 
+\[  \frac{\partial^2 l}{\partial \beta^2 } = \frac{-3n}{\beta} < 0 \]
+
+Thus, we have found \(\hat{\beta}_{MLE} = \frac{3n}{\Bar{x}}\)
+
+\end{myquestion}%%% END OF Q1
+
+\section{Question 2}
+\begin{myquestion}
+If \(X_1, X_2, \cdots, X_n\) constitutes a random sample of size \(n\) from a geometric population, find formulas for estimating its parameter \(\theta\) by using\\
+
+a) the method of moments.\\
+\textbf{Solution:}\\ 
+\(X_1, \cdots, X_n \overset{\text{iid}}{\sim} \operatorname{Geometric}(\theta)\)\\ 
+We know the pmf to be \[ P(X=x) = \theta(1-\theta)^{x-1} : x = \{1,2,\dots\},\hspace{.2cm} 0 \leq p \leq 1 \]
+
+Finding formulas using the method of moments:
+\[
+    E(X) = \sum_{x} x P(X=x) = \sum_{x} x \theta(1-\theta)^{x-1}
+\]
+
+Using the Geometric Series, \[S = \sum_{i=1}^{\infty}r^x = \frac{1}{1-r} : |r|<1 \hspace{.2cm} \text{and } r = 1-\theta \]
+
+\begin{align*}
+    \frac{dS}{dr} =& \frac{d}{dr}\left( \frac{1}{1-r}\right) = \frac{1}{(1-r)^2} = \sum_{i=1}^{\infty} xr^{x-1}
+\end{align*}
+
+Substituting \(r = 1-\theta\):
+\begin{align*}
+    \sum_{i=1}^{\infty} xr^{x-1} =& \sum_{i=1}^{\infty} x(1-\theta)^{x-1}\\
+    \sum_{i=1}^{\infty} x(1-\theta)^{x-1} =& \frac{1}{\theta^2}\\
+    \sum_{i=1}^{\infty} x\theta(1-\theta)^{x-1} =& \frac{\theta}{\theta^2}\\
+    \sum_{i=1}^{\infty} x\theta(1-\theta)^{x-1} =& \frac{1}{\theta}\\
+    E(X) =& \frac{1}{\theta} = \Bar{x} = \frac{1}{\hat{\theta}}\\
+    \Bar{x} = \frac{1}{\hat{\theta}}\\
+    \hat{\theta} = \frac{1}{\Bar{x}}
+\end{align*}
+
+b) the method of maximum likelihood.\\
+\textbf{Solution:}
+
+Using the same pmf: 
+\begin{align*}
+    L(\theta) =& \prod_{i=1}^n P(x_i) = \prod_{i=1}^n \theta(1-\theta)^{x_i-1}\\
+    l(\theta) =& \ln\left( \prod_{i=1}^n \theta(1-\theta)^{x_i-1} \right)\\
+    =& \sum_{i=1}^n \ln(\theta) + (x_i -1)\ln(1-\theta)\\
+    \frac{dl}{d\theta} =& \sum_{i=1}^n \frac{1}{\theta} - \frac{(x_i-1)}{1-\theta}\\
+    0 =& \frac{n}{\theta} - \frac{\sum_{i=1}^n (x_i -1)}{1-\theta}\\
+    \theta =& \frac{n}{\sum_{i=1}^{n} x_i} = \hat{\theta}_{MLE}
+\end{align*}
+
+Thus, we have found formulas for estimating \(\theta\) using both methods.
+
+\end{myquestion} %%% END OF Q2
+
+\section{Question 3}
+\begin{myquestion}
+   If \(X_1, X_2, \cdots, X_n\) constitutes a random sample of size \(n\) from a population given by
+   \[ f(x;\theta) = 
+   \begin{cases}
+   \frac{2(\theta-x)}{\theta^2} \hspace{.4cm} \text{for } 0 < x < \theta\\ 
+   0, \text{ otherwise}
+   \end{cases}
+   \]
+   find an estimator for \(\theta\) by the method of moments.\\
+
+\textbf{Solution:}
+
+\begin{align*}
+    E(X) =& \int_0^{\theta} x \frac{2(\theta-x)}{\theta^2}dx\\
+    =& \frac{2}{\theta^2} \int_0^{\theta} x(\theta-x)dx\\
+    =& \frac{2}{\theta^2} \left[ \frac{\theta x^2}{2} - \frac{x^3}{3}\right]_{0}^{\theta}\\
+    =& \frac{2}{\theta^2} \left[ \frac{\theta^3}{2} - \frac{\theta^3}{3}\right]\\
+    =& \frac{2}{\theta^2} \cdot \frac{\theta^3}{6}\\
+    =& \frac{\theta}{3}\\
+    \therefore E(X) =& \Bar{x} = \frac{\theta}{3}\\
+    \theta =& 3\Bar{x} = \hat{\theta}_{MOM}\\
+\end{align*}
+
+Thus, using the method of moments, we find the estimator \(\hat{\theta}_{MOM} = 3\Bar{x}\).
+
+\end{myquestion} %%% END OF Q3
+
+\section{Question 4}
+\begin{myquestion}
+    Given a random sample of size \(n\) from a normal distribution with the known mean \(\mu\), find the maximum likelihood estimator for the standard deviation \(\sigma\).\\
+  
+    \textbf{Solution:}
+    We know the probability density function (pdf) of a normal distribution is 
+    \[ f(x; \mu, \sigma) = \frac{1}{\sqrt{2\pi}\sigma} e^{-\frac{(x-\mu)^2}{2\sigma^2}} \]
+
+    Using the method of maximum likelihood, we consider the likelihood function:
+    \begin{align*}
+        L(\sigma) =& \prod_{i=1}^n \frac{1}{\sqrt{2\pi}\sigma} e^{-\frac{(x_i -\mu)^2}{2\sigma^2}}\\ 
+        \ln L(\sigma) =& \ln\left(\prod_{i=1}^n \frac{1}{\sqrt{2\pi}\sigma} e^{-\frac{(x_i-\mu)^2}{2\sigma^2}} \right)\\
+        =& \sum_{i=1}^n \ln\left(  \frac{1}{\sqrt{2\pi}\sigma} e^{-\frac{(x_i-\mu)^2}{2\sigma^2}} \right)\\
+        =& -n \ln(\sigma\sqrt{2\pi}) - \frac{1}{2\sigma^2}\sum_{i=1}^n (x_i - \mu)^2 \\
+        \frac{d}{d\sigma} \ln L(\sigma) =& \frac{d}{d\sigma} \left(  -n \ln(\sigma\sqrt{2\pi}) - \frac{1}{2\sigma^2}\sum_{i=1}^n (x_i - \mu)^2 \right)\\
+        =& -\frac{n}{\sigma} + \frac{1}{\sigma^3}\sum_{i=1}^n (x_i - \mu)^2\\
+        0 =& -\frac{n}{\sigma} + \frac{1}{\sigma^3}\sum_{i=1}^n (x_i - \mu)^2\\
+        \sigma^2 =& \frac{1}{n} \sum_{i=1}^n (x_i - \mu)^2\\
+        \therefore \sigma =& \sqrt{\frac{1}{n} \sum_{i=1}^n (x_i - \mu)^2}
+    \end{align*}
+
+    Thus, we have found the maximum likelihood estimator for the standard deviation \(\sigma\) to be \(\sigma = \sqrt{\frac{1}{n} \sum_{i=1}^n (x_i - \mu)^2}\), denoted as \(\hat{\sigma}_{MLE}\).
+\end{myquestion}%%% END OF Q4
+
+\section{Question 5}
+\begin{myquestion}
+    Given a random sample of size \(n\) from a beta population with \(\beta =1 \), use the method of moments to find a formula for estimating the parameter \(\alpha\).\\
+
+    \textbf{Solution:}\\
+    Recall: \(X \sim \operatorname{Beta}(\alpha, \beta) \Rightarrow E(X) = \frac{\alpha}{\alpha + \beta}\)\\ 
+    But we know \(\beta = 1\), so 
+    \[E(X) =  \frac{\alpha}{\alpha + 1} \]
+    
+    The population first moment is
+    \begin{align*}
+        E(X) = & \frac{\alpha}{\alpha + 1}
+    \end{align*}
+
+    \noindent
+    And knowing that \(\Bar{x} = \frac{1}{n} \sum_{i=1}^n x_i\), which is the sample mean,\\
+    
+    The sample first moment is 
+    \begin{align*}
+        E(X) = & \Bar{x} = \frac{\alpha}{\alpha + 1}\\
+        \implies & \Bar{x}(\alpha + 1 ) = \alpha\\
+        \implies & \Bar{x}\alpha + \Bar{x} = \alpha\\
+        \implies & \alpha(\Bar{x} - 1) = -\Bar{x}\\
+        \implies & \alpha = \frac{\Bar{x}}{1-\Bar{x}}
+    \end{align*}
+    
+    Therefore, the method of moments estimate of \(\alpha\) based on a sample from a Beta distribution with \(\beta=1\) is \(\alpha = \frac{\Bar{x}}{1-\Bar{x}}\).
+\end{myquestion} %%% END OF Q5
+
+\end{document}

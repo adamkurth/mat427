@@ -1,0 +1,287 @@
+\documentclass{article}
+
+\usepackage{amsmath, amsthm, amssymb, amsfonts}
+\usepackage{xcolor}
+\usepackage{geometry}
+\geometry{a4paper, margin=1in}
+
+\newtheoremstyle{questionstyle}
+  {} % Space above
+  {} % Space below
+  {} % Body font
+  {} % Indent amount
+  {\bfseries} % Theorem head font (bold)
+  {.} % Punctuation after theorem head
+  { } % Space after theorem head
+  {} % Theorem head spec (can be left empty, meaning 'normal')
+\theoremstyle{questionstyle}
+\newtheorem{myquestion}{Question}
+
+% ------------------------------------------------------------------------------
+
+\begin{document}
+
+\begin{center}
+    \Large{\textbf{Homework \#1 STP 427}}\\
+    Adam Kurth
+\end{center}
+
+\section{Question 1}
+\begin{myquestion}
+    Suppose that $X_1$ and $X_2$ are i.i.d. random variables that the p.d.f. of each of them is as follows:
+    \[
+    f(x) = 
+    \begin{cases}
+        e^{-x} & \text{for } x > 0,\\
+        0 & \text{otherwise}
+     \end{cases} \]
+
+ a) Which distributional family do \(X_1, X_2\) follow?\\
+
+This p.d.f. follows a \textbf{Exponential Distribution} since \(f(x) = \lambda e^{-\lambda x} \text{ for } x > 0\)\\
+
+The given p.d.f. follows this when $\lambda =1$, \(f(x) = e^{-x} \text{ for } x>0\)\\
+
+We know that \(X_1, X_2\) are identically and independently distributed (i.i.d.) then,
+
+\[f(x_1) = e^{-x_1} \text{ and } f(x_2) = e^{-x_2}\]
+
+Thus, by independence
+
+\[f(x_1,x_2) = f(x_1)f(x_2)\] 
+\[f(x_1, x_2) = e^{-x_1}e^{-x_2} = e^{-(x_1 + x_2)}\]
+
+
+\[
+f(x_1, x_2) = 
+\begin{cases}
+e^{-(x_1 + x_2)} & , x_1,x_2 \geq 0\\
+0 & , \text{otherwise}
+\end{cases}
+\]
+
+b) Find the expectation and variance of \(Y=X_1 - X_2\)\\
+
+To first find \( E(Y) = E(X_1 - X_2)\) we first must find each component independently.\\
+
+We know that, \(E(X) = \int x f(x) dx\)
+
+Thus, 
+\[E(X_1) = \int_{0}^{\infty} x_1 f(x_1) dx_1\]
+
+Using kernel method,\\
+
+We know that \[\Gamma(\alpha) = \int_{0}^{\infty} t^{\alpha-1} e^t dt\] 
+
+and \[\Gamma(\alpha) = (\alpha -1)!\]
+
+\begin{align*}
+    E(X_1) &= \int_{0}^{\infty} x_1 e^{-x_1} dx_1 = \int_{0}^{\infty} x_1^{2-1} e^{-x_1} dx_1\\
+    &= \frac{\Gamma(2)}{(1)^2} = \frac{(2-1)!}{1}\\ 
+    &= 1
+\end{align*}
+
+\[\therefore E(X_1) = 1\]
+
+The same calculations hold for $X_2$. \[E(X_1) = E(X_2) = 1\]
+
+So the answer to part \textit{a} is 
+\begin{align*}
+    E(Y) &= E(X_1 - X_2)\\ &= 1 - 1\\ &= 0
+\end{align*}
+Finding the second moment, 
+
+\begin{align*}
+    E(X_1^2) &= \int_{0}^{\infty} x_1^2 e^{-x_1} dx_1 = \int_{0}^{\infty} x_1^{3-1} e^{-x_1} dx_1\\
+    &= \frac{\Gamma(3)}{1^2} = \frac{(3-1)!}{1} \\
+    &= 2
+\end{align*}
+
+Now, \[\operatorname{Var}(X_1) = E(X_1^2) - E(X_1)^2 = 2-1 = 1\]
+
+Since \(X_1, X_2\) are i.i.d. the same calculations hold for $X_2$.\\
+
+\[E(Y)=E(X_1-X_2) = E(X_1) - E(X_2) = 1-1 = 0\]
+
+\begin{align*}
+    \text{Var}(Y) &= \operatorname{Var}(X_1-X_2) = \operatorname{Var}(X_1) + \operatorname{Var}(X_2) - 2\operatorname{Cov}(X_1, X_2)
+\end{align*}
+
+Recall: 
+\[\operatorname{Cov}(X_1, X_2) = E(X_1X_2) - E(X_1)E(X_2)\]
+
+Due to independence, \(E(X_1X_2) = E(X_1)E(X_2)\)
+
+\begin{align*}
+    \operatorname{Cov}(X_1, X_2) &= E(X_1X_2) - E(X_1)E(X_2) = E(X_1)E(X_2) - E(X_1)E(X_2)\\
+    &= 1(1) - 1(1) = 0
+\end{align*}
+
+Therefore, 
+
+\begin{align*}
+    \operatorname{Var}(Y) &= \operatorname{Var}(X_1-X_2) = \operatorname{Var}(X_1) + \operatorname{Var}(X_2) - 0\\
+    &= 1+1 = 2
+\end{align*}
+\end{myquestion} %%%%%%%%%%%%%%%%%% end of question 1
+
+\section{Question 2}
+\begin{myquestion}
+   Suppose \(X_1, X_2, X_3\) are random variables identically and independently
+distributed from the Bernoulli distribution with parameter $p = 0.5$. Determine the value of\\
+
+a) \(E(2X_1 + X_3 -4)\)\\
+
+Given \(X_1, X_2, X_3 \overset{iid}{\sim} \operatorname{Bernoulli}(p=0.5)\), each \(X_i\) has an expected value of \( E(X_i) = p = \frac{1}{2} \hspace{.2cm} \forall_{i\in \{1,2,3\}}\).
+
+Therefore, the expectation of the expression \(2X_1 + X_3 - 4\) is calculated as:
+
+\begin{align*}
+    E(2X_1 + X_3 - 4) &= 2E(X_1) + E(X_3) - 4\\ 
+    &= 2 \cdot \frac{1}{2} + \frac{1}{2} - 4\\ 
+    &= -\frac{5}{2}
+\end{align*}
+
+b) \(E[(X_1 −2X_2 +X_3)^2]\)\\
+
+(Hint: You may use the formula $(a+b+c)^2 = a^2 +b^2 +c^2 +2ab+2ac+2bc$)\\
+
+\((X_1 - 2X_2 + X_3)^2 = X_1^2 + 4X_2^2 + X_3^2 -4X_1X_2 + 2X_1X_3 -4X_2X_3\)
+
+\begin{align*}
+    E((X_1 - 2X_2 -X_3)^2) &= E(X_1^2) + 4E(X_2^2) + E(X_3^2) -4E(X_1X_2) + 2E(X_1X_3) -4E(X_2X_3)\\
+    &= \frac{1}{2} + 4\left(\frac{1}{2}\right) + \frac{1}{2} - 4E(X_1)E(X_2) + 2E(X_1)E(X_3) - 4E(X_2)E(X_3)\\
+    &= 3 + 4\left(\frac{1}{2}\right) + 2\left(\frac{1}{2}\right) - 4\left(\frac{1}{2}\right)\\
+    &= 3 -1 +\frac{1}{2} - 1\\
+    &= \frac{3}{2}
+\end{align*}
+\end{myquestion} %%%%%%%%%%%%%%%%%% end of question 2
+
+\section{Question 3}
+\begin{myquestion}
+Suppose that \(X\) is distributed from a Normal distribution \(N(\mu, \sigma^2)\) with \(\mu = 2\) and \(\sigma^2 = 1\). Define \(Y = 2X - 1\).
+
+a) Find the expectation and the variance of \(Y\).\\
+
+Recall: For arbitrary r.v.'s \(X,Y\) suppose that \(Y=aX+b\), 
+\begin{align*}
+    E(Y) &= aE(X) + b\\
+    \operatorname{Var}(Y) &= a^2\operatorname{Var}(X)
+\end{align*}
+
+Thus, with \(X \sim N(\mu = 2, \sigma = 1)\), with \(Y=2X-1\)
+\begin{align*}
+    E(Y) =& 2E(X)-1\\ 
+    &= 2\mu -1 = 2(2)-1\\
+    &= 3
+\end{align*}
+
+and 
+\begin{align*}
+    \operatorname{Var}(Y) =& 2^2\operatorname{Var}(X)\\ 
+    &= 4\sigma = 4(1)\\
+    &= 4
+\end{align*}
+
+
+b) Find the probability \(P(1 < Y < 3)\).
+
+\begin{align*}
+    P(1<Y<3) &= P(1< Y=2X-1 <3) =  P(1< 2X-1 <3)\\
+    &=  P(2< 2X <4) = P(1< X < 2)
+\end{align*}
+Now calculate the area between 1 and 2.
+\[ \operatorname{normcdf}(1,2, \mu=2,\sigma=1) \approx 0.34134\]
+\end{myquestion} %%%%%%%%%%%%%%%%%% end of question 3
+
+
+\section{Question 4}
+\begin{myquestion}
+(20 pts.) Show that if \(X_{11}, X_{12}, \cdots , X_{1n_1} , X_{21}, X_{22}, \cdots , X_{2n_2}\) are independent random variables, with the first $n1$ constituting a random sample from an infinite population with
+the mean $\mu_1$ and the variance $\sigma^2$ and the other $n_2$ constituting a random sample from an infinite
+population with the mean $\mu_2$ and the variance $\sigma_2^2$ then\\
+
+a) \(E(\bar{X_1} - \bar{X_2}) = \mu_1 - \mu_2\)\\
+
+We know \(E(\bar{X_1} - \bar{X_2}) = E(\bar{X_1}) - E(\bar{X_2})\)
+
+Also, that \[\bar{X_1}= \sum_{i=1}^{n_1} X_{1i} \text{ and } \bar{X_2}= \sum_{i=1}^{n_2} X_{2i}\]
+
+We know that \(\bar{X_{1}},\bar{X_{2}}\) are independent.\\
+
+For an arbitrary random variable \(Y\) with a p.d.f. of \(f(y)\), we know \(E(Y) = \sum_{y}yf(y)\)
+
+Since in this problem, 
+\begin{align*}
+    E(\bar{X_1}) =&  E\left(\sum_{i=1}^{n_1} X_{1i} \right) = \mu_1\\
+    E(\bar{X_2}) =&  E\left(\sum_{i=1}^{n_2} X_{2i} \right) = \mu_2
+\end{align*}
+
+The expectation of the sample mean is, by definition, the population mean \(\mu_i \text{ for } i = \{1,2\}\)\\
+
+Thus, 
+\begin{align*}
+    \therefore E(\bar{X_{1}}-\bar{X_{2}}) &= E(\bar{X_1}) - E(\bar{X_2})\\ &= \mu_1 - \mu_2 
+\end{align*}
+
+
+b) $\operatorname{Var}(\bar{X_1} - \bar{X_2}) = \frac{\sigma_1^2}{n_1} + \frac{\sigma_2^2}{n_2}$\\
+
+Given,
+\[ \operatorname{Var}(\bar{X_1}) = \sigma_1^2 \text{ and } \operatorname{Var}(\bar{X_2}) = \sigma_2^2\]
+
+But since \(\bar{X_{1}},\bar{X_{2}}\) are independent, \(\operatorname{Cov}(\bar{X_1}, \bar{X_2}) = 0\)
+
+\begin{align*}
+    \operatorname{Var}(\bar{X_1} - \bar{X_2}) =& \operatorname{Var}(\bar{X_1}) + \operatorname{Var}(\bar{X_2}) - 2\operatorname{Cov}(\bar{X_1}, \bar{X_2})\\
+    =& \operatorname{Var}(\bar{X_1}) + \operatorname{Var}(\bar{X_2}) - 2(0)\\
+    =& \operatorname{Var}(\bar{X_1}) + \operatorname{Var}(\bar{X_2})\\
+    =& \sigma_1^2 + \sigma_2^2
+\end{align*}
+
+Can rewrite \(\sigma_1^2 \text{ and } \sigma_2^2\).\\ 
+
+We know that the variance of the sample mean is \(\operatorname{Var}(\bar{X_i}) = \frac{\sigma_i^2}{n} \text{ for } i = \{1,2\}\).
+
+\[\operatorname{Var}(\bar{X_1}) = \frac{\sigma_1^2}{n_1} \text{ and }\operatorname{Var}(\bar{X_2}) = \frac{\sigma_2^2}{n_2}\]
+
+\[\therefore \operatorname{Var}(\bar{X_1} - \bar{X_2}) =  \frac{\sigma_1^2}{n_1} +  \frac{\sigma_2^2}{n_2}\]
+
+
+\end{myquestion} %%%%%%%%%%%%%%%%%% end of question 3
+
+\section{Question 5}
+\begin{myquestion}
+If the first $n_1$ random variables of Question 4 have Bernoulli distribution with the parameter $\theta_1$ and the other $n_2$ random variables have Bernoulli distribution with the parameter $\theta_2$, show that for the sample proportions $\hat{\Theta}_1 = \frac{1}{n_1} \sum_{i=1}^{n_1} X_{1i}$ and $\hat{\Theta}_2 = \frac{1}{n_2} \sum_{i=1}^{n_2} X_{2i}$\\
+
+a) \(E(\hat{\Theta}_1 - \hat{\Theta}_2) = \theta_1 - \theta_2\)\\
+
+Given that \(X_{1i}, X_{2i} \sim \operatorname{Bernoulli}(\theta_i) \text{ for } i =\{ 1,2\} \)
+
+\begin{align*}
+    E(X_{1i}) &= \theta_1, \operatorname{Var}(X_{1i}) = \theta_1(1-\theta_1) \hspace{.2cm} \because \hspace{.2cm} \sim \operatorname{Bernoulli}\\
+     E(X_{2i}) &= \theta_2, \operatorname{Var}(X_{2i}) = \theta_2(1-\theta_2)\\
+    \hat{\Theta_i} &= \frac{1}{n_i} \sum_{j=1}^{n_i} X_{ij} \text{ for } i=\{1,2\}
+\end{align*}
+
+\begin{align*}
+    E(\hat{\Theta}_1 - \hat{\Theta}_2) &= E\left( \sum_{i=1}^{n_1}X_{1i} - \sum_{i=1}^{n_2}X_{2i}\right)\\
+    =& \frac{1}{n_1} E\left( \sum_{i=1}^{n_1}X_{1i}\right) - \frac{1}{n_1} E\left( \sum_{i=1}^{n_2}X_{2i}\right)\\ %EXPLAIN FROM PREVIOUS STEP TO HERE
+    =& \frac{1}{n_1} n_1\theta_1 - \frac{1}{n_2} n_2\theta_2\\
+    =& \theta_1 - \theta_2
+\end{align*}
+
+
+b) $\operatorname{Var}(\hat{\Theta}_1 - \hat{\Theta}_2) = \frac{\theta_1(1-\theta_1}{n_1} + \frac{\theta_2(1-\theta_2)}{n_2}$
+
+\begin{align*}
+    \operatorname{Var}(\hat{\Theta}_1 - \hat{\Theta}_2) =& \operatorname{Var}\left(\frac{1}{n_1} \sum_{i=1}^{n_1} X_{1i}\right) + \operatorname{Var}\left(\frac{1}{n_1} \sum_{i=1}^{n_1} X_{1i}\right) - 0\\
+    =& \frac{1}{n_1^2}\operatorname{Var}\left(\sum_{i=1}^{n_1} X_{1i}\right) + \frac{1}{n_1^2}\operatorname{Var}\left( \sum_{i=1}^{n_1} X_{1i}\right) \\
+    =& \frac{1}{n_1^2}n_1\operatorname{Var}(X_{1i}) + \frac{1}{n_2^2}n_2\operatorname{Var}(X_{2i})\\
+    =& \frac{1}{n_1} \theta_1(1-\theta_1) + \frac{1}{n_2}\theta_2(1-\theta_2)\\
+\end{align*}
+
+\[\therefore \operatorname{Var}(\hat{\Theta}_1 - \hat{\Theta}_2) = \frac{\theta_1(1-\theta_1)}{n_1} +  \frac{\theta_2(1-\theta_2)}{n_2}\]
+
+\end{myquestion}%%%%%%%%%%%%%%%%%% end of question 4
+\end{document}

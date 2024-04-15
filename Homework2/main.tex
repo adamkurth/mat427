@@ -1,0 +1,267 @@
+\documentclass{article}
+
+\usepackage{amsmath, amsthm, amssymb, amsfonts}
+\usepackage{xcolor}
+\usepackage{geometry}
+\geometry{a4paper, margin=1in}
+
+\newtheoremstyle{questionstyle}
+  {} % Space above
+  {} % Space below
+  {} % Body font
+  {} % Indent amount
+  {\bfseries} % Theorem head font (bold)
+  {.} % Punctuation after theorem head
+  { } % Space after theorem head
+  {} % Theorem head spec (can be left empty, meaning 'normal')
+\theoremstyle{questionstyle}
+\newtheorem{myquestion}{Question}
+
+% ------------------------------------------------------------------------------
+
+\begin{document}
+
+\begin{center}
+    \Large{\textbf{Homework \#2 STP 427}}\\
+    Adam Kurth
+\end{center}
+
+
+\section{Question 1}
+\begin{myquestion}
+    
+    An experiment is conducted in Australia to study the relationship between
+    taste and the chemical composition of cheese. One chemical whose concentration can affect taste is lactic acid. Cheese manufacturers who want to establish a loyal customer base would like the taste to be about the same each time a customer purchases the cheese. The variation in concentrations of chemicals like lactic acid can lead to variation in the taste of cheese. Suppose that we model the concentration of lactic acid in several chunks of cheese as independent normal random variables with the mean \( \mu \) and the variance \( \sigma^2 \) (both \( \mu, \sigma^2\) are known). We are interested in how much these concentrations differ from the value \( \mu \). Let \( X_1, \cdots , X_k \) be the concentrations in \( k \) chunks, and let \( Z_i = (X_i - \mu )/ \sigma \) then,
+    
+    \[ Y = \frac{1}{k} \sum_{i=1}^{k}(X_i - \mu)^2  = \frac{\sigma^2}{k} \sum_{i=1}^{k} Z_i^2 \]
+    is one measure of how much the \( k \) concentrations differ from \( \mu \).\\
+    
+\textbf{a)} Can you name the distribution of \( W = kY^2/\sigma^2 \)?\\
+
+\textbf{Solution:}
+
+\begin{align*}
+    W &= \frac{k}{\sigma^2} \left( \frac{1}{k} \sum_{i=1}^k  (X_i - \mu)^2 \right)\\
+      &= \frac{k}{\sigma^2} \left( \frac{\sigma^2}{k} \sum_{i=1}^k  Z_i^2 \right)\\
+      &= \sum_{i=1}^k Z_i^2
+\end{align*}
+
+\(W = \frac{kY}{\sigma^2} \) is the sum of squares of \(k\) independent standard normal random variables.
+
+Property of standard normal states that, the sum of \(k\) independent standard normal random variables follows a \(\chi^2\) distribution with \(k\) degrees of freedom. 
+
+\[\therefore W \sim \chi^2(df=k)\]
+
+
+
+\textbf{b)} Suppose that \(k=10\) and \( \sigma^2 = 0.09 \). Can you find the values of \(c\) so that we have \(P(Y\leq c) = 0.99\)?\\
+
+\begin{align*}
+   P(Y \leq c)&= 0.99\\
+   P\left( W \leq \frac{k}{\sigma^2}c \right) &= 0.99\\
+   P\left( W \leq \frac{k}{\sigma^2}c \right) &= 0.99 \quad \text{find c: 99th percentile of } \chi^2(10) \\
+\end{align*}
+
+\[ \text{qchisq}(0.99, df=10) = 23.20925 \quad \text{in R} \]
+
+\begin{align*}
+   \frac{k}{\sigma^2}c &= 23.20925\\
+   c &= \frac{0.09 \times 23.20925}{10}\\
+   c &= 0.208881
+\end{align*}
+
+\end{myquestion}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Question 2}
+\begin{myquestion}
+    In Question 1, now suppose that we will observe \( k = 20 \) cheese chunks with lactic acid concentration \( X_1, \cdots , X_{20} \) and let \( \bar{X}_{20} = \frac{1}{k}\sum_{i=1}^{20}X_i\). Find the number \(c\) so that \( P(\bar{X}_{20} \leq \mu + c\sigma ) = 0.95 \)
+
+    
+\textbf{Solution:}\\
+
+Find \(c\): 
+\begin{align*}
+   P &(\bar{X}_{20} \leq \mu + c\sigma )= 0.95\\
+   P &\left( Z = \frac{\bar{X}_{20} - \mu}{\sigma/\sqrt{20}} \leq \frac{\mu + c\sigma - \mu}{\sigma/\sqrt{20}} = z \right)= 0.95 \quad \text{standardize}\\
+    P &\left( Z \leq c \sqrt{20} = z \right)= 0.95 \quad \text{simplify}\\
+\end{align*}
+
+Find critical value of Z such that \( P(Z \leq c\sqrt{20} = z) = 0.95\) \\
+\begin{align*}
+    1.64485 &= \operatorname{invNorm}\left(\text{area}=0.95, \mu=0, \sigma=1, \text{LEFT}\right)\\
+    \therefore 1.64485 &= z = c\sqrt{20}\\
+    c &= \frac{1.64485}{\sqrt{20}}\\
+    c &\approx 0.3678
+\end{align*}
+
+
+\end{myquestion}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Question 3}
+\begin{myquestion}
+    Verify the identity:
+    
+    \[ \sum_{i=1}^{n}(X_i - \mu)^2 = \sum_{i=1}^{k}(X_i - \bar{X})^2 + n(\bar{X} - \mu)^2 \]
+
+\textbf{Solution:}\\
+LHS: 
+\begin{align*}
+    % \sum_{i=1}^{n}(X_i - \mu)^2 &= \sum_{i=1}^{k}(X_i - \bar{X})^2 + n(\bar{X} - \mu)^2 \\
+    \sum_{i=1}^{n} (X_i - \mu )^2 &= \sum_{i=1}^{n}( X_i - \mu + \bar{X} - \bar{X}) \quad \text{ Add/subtract } \bar{X}\\
+    &= \sum_{i=1}^{n}\left[ (X_i- \bar{X} ) + (\bar{X}- \mu) \right]^2 \quad \text{ rearrange} \\
+    &= \sum_{i=1}^{n} (X_i - \bar{X})^2 + \sum_{i=1}^{n}(\bar{X} - \mu)^2 + 2\sum_{i=1}^{n} (X_i - \bar{X})(\bar{X} - \mu) \quad \text{ distribute }
+\end{align*}
+
+Note: \((\bar{X} - \mu)\) term does not depend on \(i \Rightarrow\) factor out \( \sum_{i=1}^{n}(\bar{X} - \mu)^2 = n(\bar{X} - \mu)^2 \)\\
+
+Continued: 
+
+\begin{align*}
+    =& \sum_{i=1}^{n} (X_i - \bar{X})^2 + \sum_{i=1}^{n}(\bar{X} - \mu)^2 + 2\sum_{i=1}^{n} (X_i - \bar{X})(\bar{X} - \mu)\\
+    =& \sum_{i=1}^{n} (X_i - \bar{X})^2 + n(\bar{X} - \mu)^2 + 2(\bar{X} - \mu) \sum_{i=1}^{n} (X_i - \bar{X})\\
+\end{align*}
+
+But \( \sum_{i=1}^{n}(X_i - \bar{X}) \) term cancels, since \[\bar{X} = \frac{1}{n}\sum_{i=1}^{n}(X_i) \]
+
+Thus, 
+
+\begin{align*}
+    2(\bar{X} - \mu)\sum_{i=1}^{n}(X_i - \bar{X}) &= 2(\bar{X} - \mu) \left( \sum_{i=1}^{n}X_i - \sum_{i=1}^{n}X_i  \right)\\
+    &=  2(\bar{X} - \mu)\left( nX_i - nX_i  \right)\\
+    &= 0
+\end{align*}
+
+Then, 
+
+\begin{align*}
+    \Rightarrow \sum_{i=1}^{n}(X_i - \bar{X})^2 + n(\bar{X} - \mu)^2 + 0\\
+    \sum_{i=1}^{n}(X_i - \bar{X})^2 + n(\bar{X} - \mu)^2
+\end{align*}
+
+
+RHS: 
+
+\begin{align*}
+    \sum_{i=1}^{n}(X_i - \bar{X})^2 + n(\bar{X} - \mu)^2 &= \sum_{i=1}^{n}(X_i - \bar{X})^2 + n(\bar{X} - \mu)^2 + 2(\bar{X} - \mu)\left( \sum_{i=1}^{n}X_i - \sum_{i=1}^{n}X_i  \right)\\
+    &= \sum_{i=1}^{n}(X_i - \bar{X})^2  + n(\bar{X} - \mu)^2 + 2(\bar{X} - \mu)\sum_{i=1}^{n}(X_i - \bar{X})\\
+    &= \sum_{i=1}^{n}(X_i - \bar{X})^2  + n(\bar{X} - \mu)^2 + 2\sum_{i=1}^{n}(X_i - \bar{X})(\bar{X} - \mu)\\
+    &= \sum_{i=1}^{n}\left[ (X_i - \bar{X}) + (\bar{X} - \mu) \right]^2 \\
+    &= \sum_{i=1}^{n}( X_i - \mu )^2 \\
+\end{align*}
+
+\end{myquestion}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Question 4}
+\begin{myquestion}
+     A random sample of size \(n=100\) is taken from an infinite population with the mean \( \mu = 75 \) and the variance \(\sigma^2 = 256\).\\
+
+    a) Based on the law of large numbers (LLN), with what probability can we assert that the value we obtain for \(\bar{X}\) will fall between 67 and 83?\\
+
+\textbf{Solution:}\\
+
+    \textbf{a)} Using Large of Large Numbers, we want to find the probability that \(\bar{X} \in [67,83]\).
+
+    \begin{align*}
+        \mu = 75 &\Rightarrow \text{lower bound } = 75 - 67 = 8\\
+                & \Rightarrow \text{ upper bound } = 83 - 75 = 8 \\
+                \therefore & \hspace{.2cm} \varepsilon = 8
+    \end{align*}
+
+    We know 
+
+    \[ \sigma_{\bar{X}} = \frac{\sigma}{\sqrt{n}} = \frac{\sqrt{256}}{\sqrt{\sqrt{100}}} = \frac{16}{10} = 1.6\]
+    
+    Using LLN: 
+    
+    \begin{align*}
+        P(|\bar{X} - \mu| \leq \varepsilon ) &\geq 1- \frac{\sigma^2}{n\varepsilon^2} \quad \text{LLN}\\
+        P(|\bar{X} - 75 | \leq 8 ) &\geq 1 - \frac{256}{100(8)^2}\\
+        P( -8 \leq \bar{X} - 75 \leq 8 ) &\geq 1 - \frac{256}{6400}\\ 
+        P( 67 \leq \bar{X} \leq 83 ) &\geq 1 - \frac{256}{6400}\\ 
+        P( 67 \leq \bar{X} \leq 83 ) &\geq 1- 0.04\\
+        P( 67 \leq \bar{X} \leq 83 ) &\geq 0.96\\
+    \end{align*}
+
+96\% of the sample mean falls within [67,83]. We have shown this by using the LLN.\\
+
+Chebyshev's Inequality:
+
+Solve for \( k \): \[ k = \frac{83 - \mu}{\sigma_{\bar{X}}} = \frac{83 - 75}{1.6} = \frac{8}{1.6} = 5\]
+
+Then,
+\begin{align*}
+    P(|\bar{X} - \mu | > k\sigma ) &\leq \frac{1}{k^2} \quad \text{Chevyshev's Inequality}\\
+    P(|\bar{X} - \mu | \leq k\sigma_{\bar{X}} ) &\geq 1- \frac{1}{k^2} \\
+    P(|\bar{X} - \mu | \leq 5(1.6) ) &\geq 1- \frac{1}{5^2} \\
+    P(|\bar{X} - 75 | \leq 8 ) &\geq 1- \frac{1}{25} \\
+    P( -8 \leq \bar{X} - 75 \leq 8 ) &\geq 1- 0.04 \\
+    P( -8 \leq \bar{X} - 75 \leq 8 ) &\geq 1- 0.04 \\
+    P( 67 \leq \bar{X} \leq 83 ) &\geq 0.96\\
+\end{align*}
+
+Thus, we have confirmed this answer.\\ 
+
+ \textbf{b)} Based on the central limit theorem, with what probability can we assert that the value we obtain for \(\bar{X}\) will fall between 67 and 83?\\
+
+\textbf{Solution:}\\
+
+By CLT:
+
+\begin{align*}
+    P(67 \leq \bar{X} \leq 83) &= P\left( \frac{67 - \mu}{\sigma_{\bar{X}}} \leq \frac{\bar{X} - \mu}{\sigma_{\bar{X}}} \leq \frac{83 - \mu}{\sigma_{\bar{X}}}\right)\\
+    &= P\left( \frac{67 - 75}{1.6} \leq Z \leq \frac{83 - 75}{1.6}\right)\\
+    &=  P\left( \frac{67 - 75}{1.6} \leq Z \leq \frac{83 - 75}{1.6}\right)\\
+    &= P\left( \frac{-8}{1.6} \leq Z \leq \frac{8}{1.6}\right)\\
+    &= P\left( -5 \leq Z \leq 5 \right)\\ 
+    &= \phi(5) - \phi(-5)\\
+    & \text{pnorm(5) - pnorm(-5)} \quad \text{ into R}\\
+    &= .9999994 \\ 
+    &\approx 1
+\end{align*}
+
+
+
+\end{myquestion}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Question 5}
+\begin{myquestion}
+    A random sample of size $n = 225$ is to be taken from a uniform population with \(\alpha = 24\) and \(\beta = 48\). Based on the central limit theorem, what is the probability that the mean of the sample will be less than 35?\\
+
+    (Hint: For \(X \sim \operatorname{Unif}[\alpha, \beta], E(X) = \frac{\alpha + \beta}{2}, \operatorname{Var}(X) = \frac{(\beta - \alpha)^2}{12}\) then apply CLT.)\\
+
+\textbf{Solution:}\\
+
+We are given: \(n = 225, \alpha=24, \beta=48, X \sim \operatorname{Unif}[\alpha, \beta]\) \\ 
+
+Want to find \(P( \mu < 35 )\)
+
+\[ \mu = E(X) = \frac{\alpha + \beta}{2} = \frac{24 + 48}{2} = \frac{76}{2} = 36\]
+
+\[ \sigma^2 = \operatorname{Var}(X) = \frac{(\beta - \alpha)^2}{12} = \frac{(48-24)^2}{12} = \frac{24^2}{12} = 48\]
+
+Thus, \[ \sigma = \sqrt{\sigma^2} = \sqrt{48} = 6.9282 \]
+
+And, 
+\[\sigma_{\bar{X}} = \frac{\sigma}{\sqrt{n}} = \frac{6.9282}{\sqrt{225}} = \frac{6.9282}{15} = 0.46188 \]
+
+Apply CLT:
+
+\begin{align*}
+    P\left(Z = \frac{\bar{X} - \mu}{\sigma_{\bar{X}}} \leq \frac{35 - 36}{\sigma_{\bar{X}}}\right) &= P\left(Z < -\frac{1}{0.46188}\right) \\
+    &= P(Z < -2.165) \\
+    &= 0.01519384.
+\end{align*}
+
+\end{myquestion}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}
