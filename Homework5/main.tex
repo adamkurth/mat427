@@ -1,0 +1,189 @@
+\documentclass{article}
+
+\usepackage{amsmath, amsthm, amssymb, amsfonts}
+\usepackage{xcolor}
+\usepackage{geometry}
+\geometry{a4paper, margin=1in}
+
+\newtheoremstyle{questionstyle}
+  {} % Space above
+  {} % Space below
+  {} % Body font
+  {} % Indent amount
+  {\bfseries} % Theorem head font (bold)
+  {.} % Punctuation after theorem head
+  { } % Space after theorem head
+  {} % Theorem head spec (can be left empty, meaning 'normal')
+\theoremstyle{questionstyle}
+\newtheorem{myquestion}{Question}
+
+% ------------------------------------------------------------------------------
+
+\begin{document}
+
+\begin{center}
+    \Large{\textbf{Homework \#5 STP 427}}
+\end{center}
+
+\section{Question 1}
+\begin{myquestion}
+A district official intends to use the mean of a random sample of 150 sixth grader from a very large school district to estimate the mean score that all the sixth graders in the district would get if they took a certain arithmetic achievement test. If, based on experience, the official knows that \(\sigma = 9.4\) for such data, what can she assert with probability \(0.95\) about the maximum error?\\ 
+
+\textbf{Solution:}
+We know \(n = 150, \alpha = 0.05\)
+Thus, 
+\begin{align*}
+     1-\alpha =& P \{ |\Bar{x} - \mu| < \text{max error}\}\\
+     =& P \left\{ \left|\frac{\Bar{x} - \mu}{\sigma/\sqrt{n}}\right| < \frac{\text{max error}}{\sigma/\sqrt{n}}\right\}
+\end{align*}
+
+Then, 
+\begin{align*}
+    z_{\frac{\alpha}{2}} =& \frac{\text{max error}}{\sigma}/\sqrt{n}\\
+    z_{0.025} =& 1.96 
+\end{align*}
+
+And we know that \(\simga=9.4, n=150\)\\
+
+Thus,
+
+\[\text{max error} = \frac{\sigma}{\sqrt{n}}z_{\frac{\alpha}{2}} = \frac{9.4}{\sqrt{150}}(1.96) =  1.5043\]
+
+\end{myquestion}
+
+\section{Question 2}
+\begin{myquestion}
+In a study of television viewing habits, it is desired to estimate the average number of hours that teenagers spend watching per week. If it is reasonable to assume that \(\sigma = 3.2\), how large a sample is needed so that it will be possible to assert with \(95\%\) confidence that the sample mean is off by less than 20 minutes.\\
+
+
+\textbf{Solution:}\\
+\(\alpha = 0.05, \sigma = 3.2\)
+We know that 20 minutes = \(\frac{1}{3}\) hours,\\
+Thus, 
+\begin{align*}
+    1 - \alpha =& P \left( |\Bar{x} - \mu| < \frac{1}{3} \right)\\
+    =& P \left( \left|\frac{\Bar{x} - \mu}{\sigma/\sqrt{n}} \right| < \frac{1}{3\sigma\sqrt{n}} \right)\\
+\end{align*}
+
+Then, 
+\[z_{\frac{\alpha}{2}} = \frac{\sqrt{n}}{3\sigma}\]
+and we know, 
+\[n = \left(\frac{\simga z_{\frac{\alpha}{2}}*\sigma}{\text{ Margin of Error}}\right)^2 = \left(\frac{1.96(3.2)}{1/3}\right)^2 = 354.04\]
+
+We round to a sample size of 355 is needed. 
+\end{myquestion}
+
+\section{Question 3}
+\begin{myquestion}
+    Let \(\Bar{x}\) be the observed mean of a random sample of size n from a normal distribution having mean \(\mu\) and known variance \(\sigma^2\). Find \(n\) so that \( (\Bar{x} - \frac{\sigma}{4}), \Bar{x} + \frac{\sigma}{4}) \) is an approximate 95\% confidence interval for \(\mu\)\\
+
+\textbf{Solution:}\\
+We know \(\simga^2, \alpha = 0.05\)
+
+\[z_{\frac{\alpha}{2}} = z_{0.025} = 1.96\]
+
+To construct the 95\% confidence interval, 
+\[ \Bar{x} - z_{\frac{\alpha}{2}}\frac{\sigma}{\sqrt{n}} < \mu < \Bar{x} + z_{\frac{\alpha}{2}}\frac{\sigma}{\sqrt{n}} \]
+
+Find \(n\): 
+\begin{align*}
+    z_{\frac{\alpha}{2}}\frac{\sigma}{\sqrt{n}} =& \frac{\sigma}{4}\\
+\end{align*}
+
+\[
+n = \left(\frac{z_{\frac{\alpha}{2}} \cdot \sigma}{\frac{\sigma}{4}}\right)^2 = \left(\frac{1.96 \cdot \sigma}{\frac{\sigma}{4}}\right)^2 \approx 61
+\]
+
+\end{myquestion}
+
+\section{Question 4}
+\begin{myquestion}
+ A study of two kinds of photocopying equipment shows that 61 failures of the first kind of equipment took on the average 80.7 minutes to repair with a standard deviation of 19.4 minutes, whereas 61 failures of the second kind of equipment too on the average 88.1 minutes to repair with a standard deviation of 18.8 minutes. Find a 99\% confidence interval for the difference between the true average amounts of time it takes to repair failures of the two kinds photocopying equipment.
+    
+\textbf{Solution:}\\
+\begin{enumerate}
+    \item \(n_1 = 61, \sigma_1 = 19.4, \Bar{x}_1 = 80.2\)
+    \item \(n_2 = 61, \sigma_2 = 18.8, \Bar{x}_2 = 88.1\)
+\end{enumerate}
+\[z_{\frac{\alpha}{2}} = z_{0.005} = 2.575\]
+
+\[(\Bar{x}_1 - \Bar{x}_2) - z_{\frac{\alpha}{2}}\sqrt{\frac{\sigma_1^2}{n_1} + \frac{\sigma_2^2}{n_2}} < \mu_1 - \mu_2 < (\Bar{x}_1 - \Bar{x}_2) + z_{\frac{\alpha}{2}}\sqrt{\frac{\sigma_1^2}{n_1} + \frac{\sigma_2^2}{n_2}}\]
+
+
+\[
+(\bar{x}_1 - \bar{x}_2) \pm z_{\frac{\alpha}{2}} \sqrt{\frac{\sigma_1^2}{n_1} + \frac{\sigma_2^2}{n_2}} = (80.7 - 88.1) \pm 2.575 \sqrt{\frac{19.4^2}{61} + \frac{18.8^2}{61}} \approx -7.4 \pm 8.91
+\]
+\[ -16.31 \leq \mu_1 - \mu_2 \leq 1.51 \]
+\[
+\text{CI: } (-16.31, 1.51)
+\]
+
+\end{myquestion}
+
+\section{Question 5}
+\begin{myquestion}
+    The following are the heat-producing capacities of coal from two mines: 
+    \[ \text{Mine A:} 8500, 8330, 8480, 7960, 8030 \]
+    \[ \text{Mine B:} 7710, 7890, 7920, 8270, 7860 \]
+    Assuming that the data constitute independent random samples from normal population with equal variances, construct a 99\% confidence interval for the difference between the true average heat producing capacities of coal from the two mines
+
+\textbf{Solution:}\\
+\[
+s_p = \sqrt{\frac{(n_1 - 1)s_1^2 + (n_2 - 1)s_2^2}{n_1 + n_2 - 2}} = 230.3259
+\]
+\[
+(\bar{x}_1 - \bar{x}_2) \pm t_{\frac{\alpha}{2}, n_1+n_2-2} \cdot s_p \cdot \sqrt{\frac{1}{n_1} + \frac{1}{n_2}} = (8260 - 7930) \pm 5.0411 \cdot 230.3259 \cdot \sqrt{\frac{1}{5} + \frac{1}{5}}
+\]
+\[
+\text{CI: } (330 \pm 488.78)
+\]
+\end{myquestion}
+
+\section{Question 6}
+\begin{myquestion}
+    Among 100 fish caught in a certain lake, 18 were inedible as a result of chemical pollution. Construct a 99\% confidence interval for the corresponding true proportion.
+
+\textbf{Solution:}\\
+\(n_1 = 100, \hat{\theta} = \frac{x}{n} = 0.18, \alpha=0.01, z_{0.05} = 2.57\)
+\[\hat{\theta} - z_{\frac{\alpha}{2}}\sqrt{\frac{\hat{\theta}(1-\hat{\theta})}{n}} \leq \theta\leq \hat{\theta} + z_{\frac{\alpha}{2}}\sqrt{\frac{\hat{\theta}(1-\hat{\theta})}{n}}\]
+
+And to find the 99\% confidence interval, 
+
+\[
+\hat{\theta} \pm z_{\frac{\alpha}{2}} \sqrt{\frac{\hat{\theta}(1-\hat{\theta})}{n}} = 0.18 \pm 2.575 \sqrt{\frac{0.18(1-0.18)}{100}} \approx 0.18 \pm 0.099
+\]
+\[0.0813 \leq \theta \leq 0.2787 \]
+
+\end{myquestion}
+
+
+\section{Question 7}
+\begin{myquestion}
+    The length of the skulls of 10 fossil skeletons of an extinct species of bird has a mean of 5.68 cm and a standard deviation of 0.29 cm, Assuming that such measurements are normally distributed, constructed a 95\% confidence interval for the true variance of the skull length of the given species of bird.
+
+\textbf{Solution (a):}\\
+
+\(n = 10,s=0.29, \alpha = 0.05, t^{*} = t_{\frac{\alpha}{2},n-1} = t_{0.025,9} = 2.262\)\\
+And the 95\% confidence interval for the mean, 
+\[ \Bar{x} - t^{*}\frac{s}{n} \leq \mu \leq \Bar{x} + t^{*}\frac{s}{n}\]
+\[5.483 \leq \mu \leq 5.897\]
+\textbf{Solution (b):}\\
+And the true variance skull length,\\
+\(n=10, s=0.29, \alpha = 0.05\) 
+\[\chi_{\frac{\alpha}{2},n-1}^2 = \chi_{0.025,9}^2 = 19.023 \text{ and } \chi_{0.975,9} = 2.700\]
+
+\[ 
+\frac{(n-1)s^2}{\chi_{0.025,9}^2} \leq \sigma^2 \leq \frac{(n-1)s^2}{\chi_{0.975,9}^2}
+\]
+
+\[
+(9-1) \cdot 0.29^2 / 19.023 \leq \sigma^2 \leq (9-1) \cdot 0.29^2 / 2.700
+\]
+
+\[
+0.0398 \leq \sigma^2 \leq 0.2803
+\]
+\end{myquestion}
+
+
+\end{document}
